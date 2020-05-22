@@ -25,16 +25,22 @@ Zona de prueba
 */
 //function createProducto(categoria,codigo,descripcion,estado,nombre,precio,pxUnit,rutaImg){
 function createProducto(){  
+  var categoria=document.getElementById('categoria').value;
+  var descripcion=document.getElementById('descripcion').value;
+  var nombre=document.getElementById('nombre').value;
+  var estado=document.getElementById('estado').value;
+  var precio=document.getElementById('precio').value;
+  var unidad=document.getElementById('unidad').value;
+  var ruta=document.getElementById('rutaImg').value;
+ 
   db.collection("productos").doc().set({
-      categoria: "categoria",
-      codigo: 231,
-      email: "email",
-      descripcion: "descripcion",
-      estado: "estado",
-      nombre: "nombre",
-      precio: "123",
-      pxUnit : true,
-      rutaImg : "rutaImg"
+      categoria: categoria,
+      descripcion: descripcion,
+      nombre: nombre,
+      estado: estado,
+      precio: precio,
+      unidad : unidad,
+      rutaImg : ruta
 
   })
   .then(function(){
