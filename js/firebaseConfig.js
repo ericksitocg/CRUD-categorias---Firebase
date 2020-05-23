@@ -68,28 +68,121 @@ function obtenerProductos(){
 
 }
 
-function actualizarProducto(){
-    var documento = document.getElementById("input-data").value;
+function obtenerProducto(){
+  var nombreProducto = document.getElementById("nombre").value;
 
-    db.collection("productos").doc(documento).update({
-      "nombre": "nombre 2"
+  db.collection("productos").where("nombre", "==", nombreProducto)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          console.log(doc.data().nombre, " => ", doc.id);
+      });
   })
-  .then(function() {
-      console.log("Producto de prueba actualizado");
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+
+}
+
+function actualizarProducto(){
+
+  var categoria=document.getElementById('categoria').value;
+  var descripcion=document.getElementById('descripcion').value;
+  var estado=document.getElementById('estado').value;
+  var precio=document.getElementById('precio').value;
+  var unidad=document.getElementById('unidad').value;
+  var ruta=document.getElementById('rutaImg').value;
+
+  var nombreProducto = document.getElementById("nombre").value;
+  let c = 0;
+
+  let refProducto = db.collection("productos").where("nombre", "==", nombreProducto)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if(nombre!=""){
+          doc.ref.update({
+            "nombre":nombre
+          });
+          c+=1;  
+        }
+        if(categoria!=""){
+          doc.ref.update({
+            "categoria":categoria
+          });
+          c+=1;  
+        }
+        if(descripcion!=""){
+          doc.ref.update({
+            "descripcion":descripcion
+          });  
+          c+=1;  
+        }
+        if(precio!=""){
+          doc.ref.update({
+            "precio":precio
+          });
+          c+=1;    
+        }
+        if(unidad!=""){
+          doc.ref.update({
+            "unidad":unidad
+          });  
+          c+=1;  
+        }
+        if(ruta!=""){
+          doc.ref.update({
+            "ruta":ruta
+          });  
+          c+=1;  
+        }
+        if(estado!=""){
+          doc.ref.update({
+            "estado":estado
+          });  
+          c+=1;  
+        }
+        console.log("Producto actualizado en " + c + " campos");
+      });
+  })
+  .catch(function(error) {
+      console.log("No se puedo actualizar el producto: ", error.message);
+  });
+}
+
+function eliminarProducto(){
+
+  var nombreProducto = document.getElementById("nombre").value;
+
+  let refProducto = db.collection("productos").where("nombre", "==", nombreProducto)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        doc.ref.delete();
+        console.log("Producto eliminado")
+      });
+  })
+  .catch(function(error) {
+      console.log("No se puedo eliminar el producto: ", error.message);
+  });
+}
+
+/*
+function cambiarNombres(){
+  
+  db.collection("productos").get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      let nuevoNombre = doc.data().nombre.toLowerCase();
+      doc.ref.update({
+        nombre:nuevoNombre
+      });
+      console.log(doc.data().nombre + " -> " + doc.id);
+      console.log("--------------------------- ");
+      });
     })
     .catch(function(error) {
       console.log("Error getting document:", error);
     });
 }
-
-function eliminarProducto(){
-
-  var documento = document.getElementById("input-data").value;
-
-  db.collection("productos").doc(documento).delete().then(function() {
-    console.log("Producto de prueba borrado");
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
-}
-
+*/
