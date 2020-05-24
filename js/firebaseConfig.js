@@ -290,58 +290,45 @@ function ingresarProductoPorNombreCont(){
       console.log("Error producto: ", error.message);
   });
 }
-/*
 
 function ingresarProductosPorBusquedaCont(){
   let nombreProducto = document.getElementById("nombre").value;
-  let limite = coincidenciasPorBusqueda();
-
-
   let refProducto = db.collection("productos")
   .get()
   .then(function(querySnapshot) {
-      let c = 0;
-      let r = document.createElement('div');
-      $(r).addClass("row");
-
-      querySnapshot.forEach(function(doc) {
-      //  console.log(doc.data().nombre + " " + nombreProducto + " " + (doc.data().nombre).startsWith(nombreProducto));
-        if((doc.data().nombre).startsWith(nombreProducto)){
-          ingresarProductoFila(doc,r);
-          c+=1;
-          if(c%4==0&&c!= limite){
-            $("#contenedor-productos").append(r);
-            r = document.createElement('div');
-            $(r).addClass("row");
-          }
-          if(c==limite){
-            $("#contenedor-productos").append(r);
-          }
-        }
-      });
-  })
-  .catch(function(error) {
-      console.log("Error producto: ", error.message);
-  });
-}
-function coincidenciasPorBusqueda(){
-  let nombreProducto = document.getElementById("nombre").value;
-  let refProducto = db.collection("productos")
-  .get()
-  .then(function(querySnapshot) {
-      let c = 0;
+    //Logica para contar el limite
+      let limite = 0;
       querySnapshot.forEach(function(doc) {
         if((doc.data().nombre).startsWith(nombreProducto)){
-          c+=1;
+          limite+=1;
         }
       })
-      return c;
+    //Logica para ingresar al contenedor usando el limite
+    let c = 0;
+    let r = document.createElement('div');
+    $(r).addClass("row");
+    querySnapshot.forEach(function(doc) {
+    //  console.log(doc.data().nombre + " " + nombreProducto + " " + (doc.data().nombre).startsWith(nombreProducto));
+      if((doc.data().nombre).startsWith(nombreProducto)){
+        ingresarProductoFila(doc,r);
+        c+=1;
+        if(c%4==0&&c!= limite){
+          $("#contenedor-productos").append(r);
+          r = document.createElement('div');
+          $(r).addClass("row");
+        }
+        if(c==limite){
+          $("#contenedor-productos").append(r);
+        }
+      }
+    });
   })
   .catch(function(error) {
       console.log("Error producto: ", error.message);
   });
 }
-*/
+
+
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
   principal.setAttribute("id","principal-" + nombre);
@@ -376,4 +363,8 @@ function crearBotonIncremento(nombre){
   principal.append(btonPlus);
 
   return principal;
+}
+
+function limpiarProductos(){
+  document.getElementById("contenedor-productos").innerHTML="";
 }
