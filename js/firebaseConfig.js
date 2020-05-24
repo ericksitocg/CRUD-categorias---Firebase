@@ -172,6 +172,13 @@ function ingresarProductoCont(doc,nodoPadre){
   $(d).addClass("col-3");
   $(d).addClass("border border-success");
 
+  let contador = crearBotonIncremento(doc.data().nombre);  
+  
+  let btn_agregar = document.createElement("input");
+  btn_agregar.setAttribute('type',"button");
+  btn_agregar.setAttribute('value',"Agregar al carrito");
+  btn_agregar.className += "btn btn-success";
+
   var img = $('<img>');
   img.attr('src', doc.data().rutaImg);
   img.attr('height',"200");
@@ -179,6 +186,8 @@ function ingresarProductoCont(doc,nodoPadre){
 
   $(d).append(doc.data().categoria + " " + doc.data().nombre + " " + doc.data().precio);
   $(d).append(img);
+  $(d).append(contador);
+  $(d).append(btn_agregar);
   $(nodoPadre).append(d);
 }
 
@@ -207,23 +216,52 @@ function ingresarTodosProductosCont(){
       console.log("Error producto: ", error.message);
   });
 }
-
 /*
-function cambiarNombres(){
-  
-  db.collection("productos").get()
-  .then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      let nuevoNombre = doc.data().nombre.toLowerCase();
-      doc.ref.update({
-        nombre:nuevoNombre
-      });
-      console.log(doc.data().nombre + " -> " + doc.id);
-      console.log("--------------------------- ");
-      });
-    })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-}
+$('.plus').click(function(){
+  quantityField = $(this).prev();
+  quantityField.val(parseInt(quantityField.val(), 10) + 1);
+});
+
+$('.minus').click(function(){
+  quantityField = $(this).next();
+  if (quantityField.val() != 0) {
+     quantityField.val(parseInt(quantityField.val(), 10) - 1);
+  }
+})
 */
+
+function crearBotonIncremento(nombre){
+  let principal = document.createElement('div');
+  principal.setAttribute("id","principal-" + nombre);
+
+  let btonMinus = document.createElement('input');
+  btonMinus.setAttribute('type',"button");
+  btonMinus.setAttribute('value',"-");
+  btonMinus.setAttribute('id',"min-" + nombre);
+  btonMinus.addEventListener("click",function(){
+    quantityField = $(this).next();
+    if (quantityField.val() != 0) {
+       quantityField.val(parseInt(quantityField.val(), 10) - 1);
+    }
+  });
+
+  let btonPlus = document.createElement('input');
+  btonPlus.setAttribute('type',"button");
+  btonPlus.setAttribute('value',"+");
+  btonPlus.setAttribute('id',"plus-" + nombre);
+  btonPlus.addEventListener("click",function(){
+    quantityField = $(this).prev();
+    quantityField.val(parseInt(quantityField.val(), 10) + 1);
+  });
+
+  let cantidad = document.createElement('input');
+  cantidad.setAttribute('type',"text");
+  cantidad.setAttribute('value',"0");
+  cantidad.setAttribute('id',"cantidad-" + nombre);
+
+  principal.append(btonMinus);
+  principal.append(cantidad);
+  principal.append(btonPlus);
+
+  return principal;
+}
