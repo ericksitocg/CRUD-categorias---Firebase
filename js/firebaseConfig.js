@@ -23,7 +23,6 @@ var app = document.getElementById('app');
 /*
 Zona de prueba
 */
-//function createProducto(categoria,codigo,descripcion,estado,nombre,precio,pxUnit,rutaImg){
 function createProducto(){  
   var categoria=document.getElementById('categoria').value;
   var descripcion=document.getElementById('descripcion').value;
@@ -216,19 +215,6 @@ function ingresarTodosProductosCont(){
       console.log("Error producto: ", error.message);
   });
 }
-/*
-$('.plus').click(function(){
-  quantityField = $(this).prev();
-  quantityField.val(parseInt(quantityField.val(), 10) + 1);
-});
-
-$('.minus').click(function(){
-  quantityField = $(this).next();
-  if (quantityField.val() != 0) {
-     quantityField.val(parseInt(quantityField.val(), 10) - 1);
-  }
-})
-*/
 
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
