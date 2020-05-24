@@ -167,6 +167,47 @@ function eliminarProducto(){
   });
 }
 
+function ingresarProductoCont(doc,nodoPadre){
+  let d = document.createElement('div');
+  $(d).addClass("col-3");
+  $(d).addClass("border border-success");
+
+  var img = $('<img>');
+  img.attr('src', doc.data().rutaImg);
+  img.attr('height',"200");
+  img.attr('width',"200");
+
+  $(d).append(doc.data().categoria + " " + doc.data().nombre + " " + doc.data().precio);
+  $(d).append(img);
+  $(nodoPadre).append(d);
+}
+
+function ingresarTodosProductosCont(){
+  let refProducto = db.collection("productos")
+  .get()
+  .then(function(querySnapshot) {
+      let c = 0;
+      let r = document.createElement('div');
+      $(r).addClass("row");
+
+      querySnapshot.forEach(function(doc) {
+        ingresarProductoCont(doc,r);
+        c+=1;
+        if(c%4==0&&c!= querySnapshot.size){
+          $("#contenedor-productos").append(r);
+          r = document.createElement('div');
+          $(r).addClass("row");
+        }
+        if(c== querySnapshot.size){
+          $("#contenedor-productos").append(r);
+        }
+      });
+  })
+  .catch(function(error) {
+      console.log("Error producto: ", error.message);
+  });
+}
+
 /*
 function cambiarNombres(){
   
