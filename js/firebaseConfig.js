@@ -57,7 +57,7 @@ function obtenerProductos(){
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.data().nombre + " -> " + doc.id);
+        console.log(doc.data().nombre + " -> " + doc.data().categoria + " -> " +doc.id);
         });
       console.log("--------------------------- ");
       })
@@ -71,6 +71,22 @@ function obtenerProducto(){
   var nombreProducto = document.getElementById("nombre").value;
 
   db.collection("productos").where("nombre", "==", nombreProducto)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          console.log(doc.data().nombre, " => ", doc.id);
+      });
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+
+}
+
+function obtenerProductoPorCategoria(){
+  var categoriaProducto = document.getElementById("categoria").value;
+
+  db.collection("productos").where("categoria", "==", categoriaProducto)
   .get()
   .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
@@ -166,7 +182,7 @@ function eliminarProducto(){
   });
 }
 
-function ingresarProductoCont(doc,nodoPadre){
+function ingresarProductoFila(doc,fila){
   let d = document.createElement('div');
   $(d).addClass("col-3");
   $(d).addClass("border border-success");
@@ -187,8 +203,9 @@ function ingresarProductoCont(doc,nodoPadre){
   $(d).append(img);
   $(d).append(contador);
   $(d).append(btn_agregar);
-  $(nodoPadre).append(d);
+  $(fila).append(d);
 }
+
 
 function ingresarTodosProductosCont(){
   let refProducto = db.collection("productos")
@@ -199,7 +216,7 @@ function ingresarTodosProductosCont(){
       $(r).addClass("row");
 
       querySnapshot.forEach(function(doc) {
-        ingresarProductoCont(doc,r);
+        ingresarProductoFila(doc,r);
         c+=1;
         if(c%4==0&&c!= querySnapshot.size){
           $("#contenedor-productos").append(r);
@@ -216,6 +233,115 @@ function ingresarTodosProductosCont(){
   });
 }
 
+
+function ingresarProductosPorCategoriasCont(){
+  var categoriaProducto = document.getElementById("categoria").value;
+
+  db.collection("productos").where("categoria", "==", categoriaProducto)
+  .get()
+  .then(function(querySnapshot) {
+      let c = 0;
+      let r = document.createElement('div');
+      $(r).addClass("row");
+
+      querySnapshot.forEach(function(doc) {
+        ingresarProductoFila(doc,r);
+        c+=1;
+        if(c%4==0&&c!= querySnapshot.size){
+          $("#contenedor-productos").append(r);
+          r = document.createElement('div');
+          $(r).addClass("row");
+        }
+        if(c== querySnapshot.size){
+          $("#contenedor-productos").append(r);
+        }
+      });
+  })
+  .catch(function(error) {
+      console.log("Error producto: ", error.message);
+  });
+
+}
+
+function ingresarProductoPorNombreCont(){
+  var nombreProducto = document.getElementById("nombre").value;
+
+  db.collection("productos").where("nombre", "==", nombreProducto)
+  .get()
+  .then(function(querySnapshot) {
+      let c = 0;
+      let r = document.createElement('div');
+      $(r).addClass("row");
+
+      querySnapshot.forEach(function(doc) {
+        ingresarProductoFila(doc,r);
+        c+=1;
+        if(c%4==0&&c!= querySnapshot.size){
+          $("#contenedor-productos").append(r);
+          r = document.createElement('div');
+          $(r).addClass("row");
+        }
+        if(c== querySnapshot.size){
+          $("#contenedor-productos").append(r);
+        }
+      });
+  })
+  .catch(function(error) {
+      console.log("Error producto: ", error.message);
+  });
+}
+/*
+
+function ingresarProductosPorBusquedaCont(){
+  let nombreProducto = document.getElementById("nombre").value;
+  let limite = coincidenciasPorBusqueda();
+
+
+  let refProducto = db.collection("productos")
+  .get()
+  .then(function(querySnapshot) {
+      let c = 0;
+      let r = document.createElement('div');
+      $(r).addClass("row");
+
+      querySnapshot.forEach(function(doc) {
+      //  console.log(doc.data().nombre + " " + nombreProducto + " " + (doc.data().nombre).startsWith(nombreProducto));
+        if((doc.data().nombre).startsWith(nombreProducto)){
+          ingresarProductoFila(doc,r);
+          c+=1;
+          if(c%4==0&&c!= limite){
+            $("#contenedor-productos").append(r);
+            r = document.createElement('div');
+            $(r).addClass("row");
+          }
+          if(c==limite){
+            $("#contenedor-productos").append(r);
+          }
+        }
+      });
+  })
+  .catch(function(error) {
+      console.log("Error producto: ", error.message);
+  });
+}
+function coincidenciasPorBusqueda(){
+  let nombreProducto = document.getElementById("nombre").value;
+  let refProducto = db.collection("productos")
+  .get()
+  .then(function(querySnapshot) {
+      let c = 0;
+      querySnapshot.forEach(function(doc) {
+        if((doc.data().nombre).startsWith(nombreProducto)){
+          c+=1;
+        }
+      })
+      return c;
+  })
+  .catch(function(error) {
+      console.log("Error producto: ", error.message);
+  });
+}
+*/
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
   principal.setAttribute("id","principal-" + nombre);
