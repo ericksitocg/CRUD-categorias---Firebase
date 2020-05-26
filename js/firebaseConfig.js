@@ -187,7 +187,7 @@ function ingresarProductoFila(doc,fila){
   $(d).addClass("col-3");
   $(d).addClass("border border-success");
 
-  let contador = crearBotonIncremento(doc.data().nombre);  
+  let contador = crearBotonIncremento(quitarEspaciosNombre(doc.data().nombre));  
   
   let btn_agregar = document.createElement("input");
   btn_agregar.setAttribute('type',"button");
@@ -271,35 +271,7 @@ function ingresarProductosPorCategoriasCont(){
   });
 
 }
-/*
-function ingresarProductoPorNombreCont(){
-  var nombreProducto = document.getElementById("nombre").value;
 
-  db.collection("productos").where("nombre", "==", nombreProducto)
-  .get()
-  .then(function(querySnapshot) {
-      let c = 0;
-      let r = document.createElement('div');
-      $(r).addClass("row");
-
-      querySnapshot.forEach(function(doc) {
-        ingresarProductoFila(doc,r);
-        c+=1;
-        if(c%4==0&&c!= querySnapshot.size){
-          $("#contenedor-productos").append(r);
-          r = document.createElement('div');
-          $(r).addClass("row");
-        }
-        if(c== querySnapshot.size){
-          $("#contenedor-productos").append(r);
-        }
-      });
-  })
-  .catch(function(error) {
-      console.log("Error producto: ", error.message);
-  });
-}
-*/
 function ingresarProductosPorBusquedaCont(){
   let nombreProducto = document.getElementById("nombre").value;
   let refProducto = db.collection("productos")
@@ -339,12 +311,12 @@ function ingresarProductosPorBusquedaCont(){
 
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
-  principal.setAttribute("id","principal-" + quitarEspaciosNombre(nombre));
+  principal.setAttribute("id","principal-" + nombre);
 
   let btonMinus = document.createElement('input');
   btonMinus.setAttribute('type',"button");
   btonMinus.setAttribute('value',"-");
-  btonMinus.setAttribute('id',"min-" + quitarEspaciosNombre(nombre));
+  btonMinus.setAttribute('id',"min-" +nombre);
   btonMinus.addEventListener("click",function(){
     quantityField = $(this).next();
     if (quantityField.val() != 0) {
@@ -355,7 +327,7 @@ function crearBotonIncremento(nombre){
   let btonPlus = document.createElement('input');
   btonPlus.setAttribute('type',"button");
   btonPlus.setAttribute('value',"+");
-  btonPlus.setAttribute('id',"plus-" + quitarEspaciosNombre(nombre));
+  btonPlus.setAttribute('id',"plus-" + nombre);
   btonPlus.addEventListener("click",function(){
     quantityField = $(this).prev();
     quantityField.val(parseInt(quantityField.val(), 10) + 1);
@@ -364,7 +336,7 @@ function crearBotonIncremento(nombre){
   let cantidad = document.createElement('input');
   cantidad.setAttribute('type',"text");
   cantidad.setAttribute('value',"0");
-  cantidad.setAttribute('id',"cantidad-" + quitarEspaciosNombre(nombre));
+  cantidad.setAttribute('id',"cantidad-" + nombre);
 
   principal.append(btonMinus);
   principal.append(cantidad);
@@ -394,7 +366,7 @@ function ingresarAlcarrito(nombre = "manzana",precio = 1.2,cantidad = 1){
     let producto = $("<tr>", {id : quitarEspaciosNombre(nombre) + "-carrito"})
     producto.append($("<td>").append(nombre));
     producto.append($("<td>").append(cantidad));
-    producto.append($("<td>").append(round(cantidad*precio)));
+    producto.append($("<td>").append("$ " + round(cantidad*precio)));
 
     $("#productos-carrito").append(producto);
   }
