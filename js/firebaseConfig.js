@@ -378,7 +378,7 @@ function ingresarAlcarrito(nombre = "manzana",precio = 1.2,cantidad = 1){
     console.log(nombre + "-carrito"); 
     $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(nombre));
     $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(Nuevacantidad));
-    $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(round(Nuevacantidad*precio)));
+    $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append("$ " + round(Nuevacantidad*precio)));
   }
 
   total = total + precio*cantidad;
