@@ -199,7 +199,7 @@ function ingresarProductoFila(doc,fila){
   btn_agregar.addEventListener("click",function(){
     let nombre = doc.data().nombre;
     let precio = parseFloat(doc.data().precio);
-    let cantidad = parseInt(document.getElementById("cantidad-" + nombre).value);
+    let cantidad = parseInt(document.getElementById("cantidad-" + quitarEspaciosNombre(nombre)).value);
     console.log(nombre,precio,cantidad)
     ingresarAlcarrito(nombre,precio,cantidad);
     }
@@ -339,12 +339,12 @@ function ingresarProductosPorBusquedaCont(){
 
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
-  principal.setAttribute("id","principal-" + nombre);
+  principal.setAttribute("id","principal-" + quitarEspaciosNombre(nombre));
 
   let btonMinus = document.createElement('input');
   btonMinus.setAttribute('type',"button");
   btonMinus.setAttribute('value',"-");
-  btonMinus.setAttribute('id',"min-" + nombre);
+  btonMinus.setAttribute('id',"min-" + quitarEspaciosNombre(nombre));
   btonMinus.addEventListener("click",function(){
     quantityField = $(this).next();
     if (quantityField.val() != 0) {
@@ -355,7 +355,7 @@ function crearBotonIncremento(nombre){
   let btonPlus = document.createElement('input');
   btonPlus.setAttribute('type',"button");
   btonPlus.setAttribute('value',"+");
-  btonPlus.setAttribute('id',"plus-" + nombre);
+  btonPlus.setAttribute('id',"plus-" + quitarEspaciosNombre(nombre));
   btonPlus.addEventListener("click",function(){
     quantityField = $(this).prev();
     quantityField.val(parseInt(quantityField.val(), 10) + 1);
@@ -364,7 +364,7 @@ function crearBotonIncremento(nombre){
   let cantidad = document.createElement('input');
   cantidad.setAttribute('type',"text");
   cantidad.setAttribute('value',"0");
-  cantidad.setAttribute('id',"cantidad-" + nombre);
+  cantidad.setAttribute('id',"cantidad-" + quitarEspaciosNombre(nombre));
 
   principal.append(btonMinus);
   principal.append(cantidad);
@@ -391,7 +391,7 @@ function ingresarAlcarrito(nombre = "manzana",precio = 1.2,cantidad = 1){
 
     cantidadCarrito.push(cantidad);
 
-    let producto = $("<tr>", {id : nombre + "-carrito"})
+    let producto = $("<tr>", {id : quitarEspaciosNombre(nombre) + "-carrito"})
     producto.append($("<td>").append(nombre));
     producto.append($("<td>").append(cantidad));
     producto.append($("<td>").append(round(cantidad*precio)));
@@ -402,11 +402,11 @@ function ingresarAlcarrito(nombre = "manzana",precio = 1.2,cantidad = 1){
     cantidadCarrito[indiceProducto] = cantidadCarrito[indiceProducto] + cantidad;
     let Nuevacantidad = cantidadCarrito[indiceProducto];
     totalXproducto = Nuevacantidad * precio;
-    document.getElementById(nombre + "-carrito").innerHTML="";
+    document.getElementById(quitarEspaciosNombre(nombre) + "-carrito").innerHTML="";
     console.log(nombre + "-carrito"); 
-    $("#" + nombre + "-carrito").append($("<td>").append(nombre));
-    $("#" + nombre + "-carrito").append($("<td>").append(Nuevacantidad));
-    $("#" + nombre + "-carrito").append($("<td>").append(round(Nuevacantidad*precio)));
+    $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(nombre));
+    $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(Nuevacantidad));
+    $("#" + quitarEspaciosNombre(nombre) + "-carrito").append($("<td>").append(round(Nuevacantidad*precio)));
   }
 
   total = total + precio*cantidad;
