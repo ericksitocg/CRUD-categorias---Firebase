@@ -57,8 +57,8 @@ function obtenerProductos(){
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.data().nombre + " -> " + doc.data().categoria + " -> " + doc.data().precio + " -> " +doc.id);
-        });
+        console.log(doc.data().nombre + " => " + doc.data().categoria + " => " + doc.data().precio + " => " + doc.data().estado + " => " + doc.data().unidad) + " => " + doc.data().unidad;
+      });
       console.log("--------------------------- ");
       })
       .catch(function(error) {
@@ -74,7 +74,7 @@ function obtenerProducto(){
   .get()
   .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-          console.log(doc.data().nombre, " => ", doc.id);
+          console.log(doc.data().nombre + " => " + doc.data().categoria + " => " + doc.data().precio + " => " + doc.data().estado + " => " + doc.data().unidad) + " => " + doc.data().unidad;
       });
   })
   .catch(function(error) {
@@ -218,6 +218,7 @@ function ingresarProductoFila(doc,fila){
 }
 
 function ingresarTodosProductosCont(){
+  limpiarProductos();
   let refProducto = db.collection("productos")
   .get()
   .then(function(querySnapshot) {
@@ -244,6 +245,7 @@ function ingresarTodosProductosCont(){
 }
 
 function ingresarProductosPorCategoriasCont(){
+  limpiarProductos();
   var categoriaProducto = document.getElementById("categoria").value;
 
   db.collection("productos").where("categoria", "==", categoriaProducto)
@@ -273,6 +275,7 @@ function ingresarProductosPorCategoriasCont(){
 }
 
 function ingresarProductosPorBusquedaCont(){
+  limpiarProductos();
   let nombreProducto = document.getElementById("nombre").value;
   let refProducto = db.collection("productos")
   .get()
@@ -347,6 +350,12 @@ function crearBotonIncremento(nombre){
 
 function limpiarProductos(){
   document.getElementById("contenedor-productos").innerHTML="";
+}
+
+function limpiarCarrito(){
+  document.getElementById("productos-carrito").innerHTML="";
+  total = 0;
+  document.getElementById("total").innerHTML = round(total);
 }
 
 // Implementacion del carrito de compras

@@ -19,37 +19,52 @@
     <title>Prueba CRUD</title>
 </head>
 <body>
-    <div class="container">
-        <input type="text" id="categoria" placeholder="categoria">
-        <input type="text" id="descripcion" placeholder="descripcion del producto">
-        <input type="text" id="nombre" placeholder="nombre producto">
-        <input type="text" id="estado" placeholder="estado del producto">
-        <input type="text" id="precio" placeholder="precio">
-        <input type="text" id="unidad" placeholder="unidads">
-        <input type="text" id="rutaImg" placeholder="ruta-imagen">
-
-        
-        <button type="button" class="btn btn-primary" onclick="createProducto()">Ingresar producto</button>
-        <button type="button" class="btn btn-secondary" onclick="obtenerProductos()">Todos los productos</button>
-        <button type="button" class="btn btn-danger" onclick = "eliminarProducto()">Eliminar producto</button>
-        <button type="button" class="btn btn-warning" onclick = "actualizarProducto()">Actualizar producto</button>
-        <button type="button" class="btn btn-warning" onclick = "obtenerProducto()">Obtener producto</button>
-        <button type="button" class="btn btn-primary" onclick="ingresarTodosProductosCont()">Presentar todos los productos</button>
-        <button type="button" class="btn btn-primary" onclick="ingresarProductosPorCategoriasCont()">Presentar productos por categoria</button>
-        <button type="button" class="btn btn-primary" onclick="ingresarProductoPorNombreCont()">Presentar productos por nombre</button>
-        <button type="button" class="btn btn-primary" onclick="ingresarProductosPorBusquedaCont()">Presentar productos por busqueda</button>
-        <button type="button" class="btn btn-danger" onclick = "limpiarProductos()">Limpiar productos</button>
-        <button type="button" class="btn btn-secondary" onclick = "ingresarAlcarrito()">Ingresar manzana al carrito</button>
-        <button type="button" class="btn btn-secondary" onclick = "ingresarAlcarrito('pera',2)">Ingresar pera al carrito</button>
+    <div class ="container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="categoria" placeholder="categoria">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="descripcion" placeholder="descripcion del producto">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="nombre" placeholder="nombre producto">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success" onclick="ingresarProductosPorBusquedaCont()">Buscar</button>
+              </div>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="estado" placeholder="estado del producto">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="precio" placeholder="precio">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="unidad" placeholder="unidades">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="rutaImg" placeholder="ruta-imagen">
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" onclick="createProducto()">Ingresar producto</button>
+            <button type="button" class="btn btn-primary" onclick="obtenerProductos()">Presentar todos los productos (consola)</button>
+            <button type="button" class="btn btn-primary" onclick = "obtenerProducto()">Presentar informacion de producto (consola)</button>
+            <button type="button" class="btn btn-primary" onclick = "actualizarProducto()">Actualizar producto</button>
+            <button type="button" class="btn btn-danger" onclick = "eliminarProducto()">Eliminar producto</button>        
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success" onclick="ingresarTodosProductosCont()">Presentar todos los productos</button>
+            <button type="button" class="btn btn-success" onclick="ingresarProductosPorCategoriasCont()">Presentar productos por categoria</button>
+            <button type="button" class="btn btn-warning" onclick = "limpiarCarrito()">Limpiar carrito</button>
+        </div>
+    </div>
+<div class="container row">
+    <div class="col-sm-11" id="contenedor-productos">
 
     </div>
-    <div class="container" id="contenedor-productos">
-
-    </div>
-    <div class="container" id="contenedor-carrito">
+    <div class="col-sm-1" id="contenedor-carrito">
         <div class="row">
             <!-- Carrito -->
-            <aside class="col-sm-4">
+            <aside>
                 <h2>Carrito</h2>
                 <!-- Elementos del carrito -->
                 <table class="table table-hover">
@@ -68,7 +83,7 @@
             </aside>
         </div>
     </div>
-
+</div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
