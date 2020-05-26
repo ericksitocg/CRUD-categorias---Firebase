@@ -57,7 +57,7 @@ function obtenerProductos(){
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.data().nombre + " -> " + doc.data().categoria + " -> " +doc.id);
+        console.log(doc.data().nombre + " -> " + doc.data().categoria + " -> " + doc.data().precio + " -> " +doc.id);
         });
       console.log("--------------------------- ");
       })
@@ -194,6 +194,17 @@ function ingresarProductoFila(doc,fila){
   btn_agregar.setAttribute('value',"Agregar al carrito");
   btn_agregar.className += "btn btn-success";
 
+  // Logica para funcionalidad de ingresar al carrito
+
+  btn_agregar.addEventListener("click",function(){
+    let nombre = doc.data().nombre;
+    let precio = parseFloat(doc.data().precio);
+    let cantidad = parseInt(document.getElementById("cantidad-" + nombre).value);
+    console.log(nombre,precio,cantidad)
+    ingresarAlcarrito(nombre,precio,cantidad);
+    }
+  ); 
+  
   var img = $('<img>');
   img.attr('src', doc.data().rutaImg);
   img.attr('height',"200");
@@ -205,7 +216,6 @@ function ingresarProductoFila(doc,fila){
   $(d).append(btn_agregar);
   $(fila).append(d);
 }
-
 
 function ingresarTodosProductosCont(){
   let refProducto = db.collection("productos")
@@ -232,7 +242,6 @@ function ingresarTodosProductosCont(){
       console.log("Error producto: ", error.message);
   });
 }
-
 
 function ingresarProductosPorCategoriasCont(){
   var categoriaProducto = document.getElementById("categoria").value;
@@ -262,7 +271,7 @@ function ingresarProductosPorCategoriasCont(){
   });
 
 }
-
+/*
 function ingresarProductoPorNombreCont(){
   var nombreProducto = document.getElementById("nombre").value;
 
@@ -290,7 +299,7 @@ function ingresarProductoPorNombreCont(){
       console.log("Error producto: ", error.message);
   });
 }
-
+*/
 function ingresarProductosPorBusquedaCont(){
   let nombreProducto = document.getElementById("nombre").value;
   let refProducto = db.collection("productos")
@@ -327,7 +336,6 @@ function ingresarProductosPorBusquedaCont(){
       console.log("Error producto: ", error.message);
   });
 }
-
 
 function crearBotonIncremento(nombre){
   let principal = document.createElement('div');
@@ -367,4 +375,65 @@ function crearBotonIncremento(nombre){
 
 function limpiarProductos(){
   document.getElementById("contenedor-productos").innerHTML="";
+}
+
+// Implementacion del carrito de compras
+
+let productosCarrito = [];
+let cantidadCarrito = [];
+let total = 0;
+
+function ingresarAlcarrito(nombre = "manzana",precio = 1.2,cantidad = 1){
+  let indiceProducto = productosCarrito.indexOf(nombre);
+  if(indiceProducto ==-1){
+
+    productosCarrito.push(nombre);
+
+    cantidadCarrito.push(cantidad);
+
+    let producto = $("<tr>", {id : nombre + "-carrito"})
+    producto.append($("<td>").append(nombre));
+    producto.append($("<td>").append(cantidad));
+    producto.append($("<td>").append(round(cantidad*precio)));
+
+    $("#productos-carrito").append(producto);
+  }
+  else{
+    cantidadCarrito[indiceProducto] = cantidadCarrito[indiceProducto] + cantidad;
+    let Nuevacantidad = cantidadCarrito[indiceProducto];
+    totalXproducto = Nuevacantidad * precio;
+    document.getElementById(nombre + "-carrito").innerHTML="";
+    console.log(nombre + "-carrito"); 
+    $("#" + nombre + "-carrito").append($("<td>").append(nombre));
+    $("#" + nombre + "-carrito").append($("<td>").append(Nuevacantidad));
+    $("#" + nombre + "-carrito").append($("<td>").append(round(Nuevacantidad*precio)));
+  }
+
+  total = total + precio*cantidad;
+  document.getElementById("total").innerHTML = round(total);
+  console.log(productosCarrito);
+  console.log(cantidadCarrito);
+  console.log("-------------------------");
+
+}
+
+function quitarEspaciosNombre(nombre){
+  let separacion = nombre.split(" ");
+  let nuevo = separacion.map(function(palabra){
+    return  palabra.charAt(0).toUpperCase() + palabra.slice(1);
+  });
+  return nuevo.join("");
+}
+
+function round(num, decimales = 2) {
+  var signo = (num >= 0 ? 1 : -1);
+  num = num * signo;
+  if (decimales === 0) //con 0 decimales
+      return signo * Math.round(num);
+  // round(x * 10 ^ decimales)
+  num = num.toString().split('e');
+  num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+  // x * 10 ^ (-decimales)
+  num = num.toString().split('e');
+  return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
 }

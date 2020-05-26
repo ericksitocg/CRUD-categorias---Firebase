@@ -39,10 +39,34 @@
         <button type="button" class="btn btn-primary" onclick="ingresarProductoPorNombreCont()">Presentar productos por nombre</button>
         <button type="button" class="btn btn-primary" onclick="ingresarProductosPorBusquedaCont()">Presentar productos por busqueda</button>
         <button type="button" class="btn btn-danger" onclick = "limpiarProductos()">Limpiar productos</button>
+        <button type="button" class="btn btn-secondary" onclick = "ingresarAlcarrito()">Ingresar manzana al carrito</button>
+        <button type="button" class="btn btn-secondary" onclick = "ingresarAlcarrito('pera',2)">Ingresar pera al carrito</button>
 
     </div>
     <div class="container" id="contenedor-productos">
 
+    </div>
+    <div class="container" id="contenedor-carrito">
+        <div class="row">
+            <!-- Carrito -->
+            <aside class="col-sm-4">
+                <h2>Carrito</h2>
+                <!-- Elementos del carrito -->
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-carrito">
+                    </tbody>
+                </table>
+                <!-- Precio total -->
+                <p class="text-right">Total: $<span id="total">0</span></p>
+            </aside>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
