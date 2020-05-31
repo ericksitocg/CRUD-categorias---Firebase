@@ -1,0 +1,67 @@
+.column,.column-der,.column-izq{
+    background-color: #d4d4d4;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 45px;
+    text-align: center;
+    
+}
+.column-izq{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.column-der{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+.dimension{
+    background-color:  #eeeeee ;
+    padding: 2px;
+    border-collapse: collapse;
+
+}
+
+.header{
+    border-radius: 3px;
+}
+
+.estilo-izq{
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+}
+.estilo-der{
+    background-color: white;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: right;
+}
+.dimension-table{
+    width: 350px;
+    
+}
+
+#total{
+    float: right;
+}
+
+#contenedor-carrito{
+    font-family: "Corbel", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+
+.cantidad{text-align: center;}
+
+.text-left{
+    font-weight: bold;
+}
+
+.valor{background-color: white;
+text-align: center;}
+
+#productos-carrito{
+    padding: 3px;
+
+}
