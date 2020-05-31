@@ -337,9 +337,12 @@ function crearBotonIncremento(nombre) {
   });
 
   let cantidad = document.createElement('input');
-  cantidad.setAttribute('type', "text");
-  cantidad.setAttribute('value', "0");
-  cantidad.setAttribute('id', "cantidad-" + nombre);
+
+
+  cantidad.setAttribute('type',"text");
+  cantidad.setAttribute('value',"1");
+  cantidad.setAttribute('id',"cantidad-" + nombre);
+
 
   principal.append(btonMinus);
   principal.append(cantidad);
