@@ -185,14 +185,14 @@ function eliminarProducto() {
 function ingresarProductoFila(doc, fila) {
   let d = document.createElement('div');
   $(d).addClass("col-3");
-  $(d).addClass("border border-success");
+  $(d).addClass("articulo");
 
   let contador = crearBotonIncremento(quitarEspaciosNombre(doc.data().nombre));
+  $(contador).addClass("div-agrup-btn-class");
 
-  let btn_agregar = document.createElement("input");
-  btn_agregar.setAttribute('type', "button");
-  btn_agregar.setAttribute('value', "Agregar al carrito");
-  btn_agregar.className += "btn btn-success";
+  let btn_agregar = document.createElement("button");
+  btn_agregar.append("Agregar al carrito");
+  btn_agregar.className += "btn-addCanasta";
 
   // Logica para funcionalidad de ingresar al carrito
 
@@ -206,12 +206,30 @@ function ingresarProductoFila(doc, fila) {
   );
 
   var img = $('<img>');
+  $(img).addClass("imgProducto");
   img.attr('src', doc.data().rutaImg);
   img.attr('height', "200");
   img.attr('width', "200");
 
-  $(d).append(doc.data().categoria + " " + doc.data().nombre + " " + doc.data().precio);
+  var nombre = document.createElement("span");
+  $(nombre).append(doc.data().categoria + " " + doc.data().nombre );
+  $(nombre).addClass("nombre-class");
+
+  let contenedor_precio = document.createElement("div");
+  $(contenedor_precio).addClass("div-precio-class")
+
+  var precio = document.createElement("span");
+  $(precio).append(doc.data().precio );
+
+  var cantidad = document.createElement("span");
+  $(cantidad).append(doc.data().unidad);
+
+  $(contenedor_precio).append(precio,cantidad);
+
+
   $(d).append(img);
+  $(d).append(nombre);
+  $(d).append(contenedor_precio);
   $(d).append(contador);
   $(d).append(btn_agregar);
   $(fila).append(d);
@@ -318,6 +336,7 @@ function crearBotonIncremento(nombre) {
 
   let btonMinus = document.createElement('input');
   btonMinus.setAttribute('type', "button");
+  btonMinus.setAttribute("class", "btn-mas-menos");
   btonMinus.setAttribute('value', "-");
   btonMinus.setAttribute('id', "min-" + nombre);
   btonMinus.addEventListener("click", function () {
@@ -329,6 +348,7 @@ function crearBotonIncremento(nombre) {
 
   let btonPlus = document.createElement('input');
   btonPlus.setAttribute('type', "button");
+  btonMinus.setAttribute("class", "btn-mas-menos");
   btonPlus.setAttribute('value', "+");
   btonPlus.setAttribute('id', "plus-" + nombre);
   btonPlus.addEventListener("click", function () {
@@ -341,6 +361,7 @@ function crearBotonIncremento(nombre) {
 
   cantidad.setAttribute('type',"text");
   cantidad.setAttribute('value',"1");
+  cantidad.setAttribute('class', 'input-css')
   cantidad.setAttribute('id',"cantidad-" + nombre);
 
 

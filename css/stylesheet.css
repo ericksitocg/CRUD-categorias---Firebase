@@ -1,3 +1,78 @@
+.articulo{
+   font-family: "Corbel", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+   text-align: center;
+   line-height: 100%;
+   display: grid;
+ padding: 2%;
+ }
+
+ .imgProducto{
+    width: 150px;
+    height: 150px;
+    display:block;
+    margin:auto;
+ }
+ 
+
+ .div-agrup-btn-class{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    padding: 3%;
+ }
+ 
+ .div-precio-class{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    padding: 3%;
+ }
+ 
+ .btn-mas-menos{
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    background-color: #eee;
+    border: 0;
+    align-items: center;
+ }
+ 
+ .btn-addCanasta{
+    height: 35px;
+    color: white;
+    background-color: #62B345;
+    border: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 150px;
+ }
+ 
+/* Use a media query to add a break point at 800px: */
+.input-css{
+    /* width: 30px;
+     height: 30px;*/
+     float: left;
+      width: 35px;
+      height: 30px;
+      
+      text-align: center;
+     font-size: 20px;
+     border-top : 1px solid #62B345;
+     border-bottom : 1px solid #62B345;
+     border-left: 0;
+     border-right: 0;
+     
+  }
+
+ .nombre-class{
+    padding: 3%;
+    font-weight: bold;
+    color:#ECD053;
+ }
+
 .column,.column-der,.column-izq{
     background-color: #d4d4d4;
     padding-left: 2px;
@@ -65,3 +140,12 @@ text-align: center;}
     padding: 3px;
 
 }
+
+.btn-mas-menos{
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    background-color: #eee;
+    border: 0;
+    align-items: center;
+ }
